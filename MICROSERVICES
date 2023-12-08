@@ -1,0 +1,62 @@
+1. Install Apache server on Ubuntu
+sudo apt install apache2
+
+2. Install php runtime and php mysql connector
+sudo apt install php libapache2-mod-php php-mysql
+
+3. Install MySQL server
+sudo apt install mysql-server 
+
+4. Login to MySQL server
+sudo mysql -u root
+
+5. Change authentication plugin to mysql_native_password (change the password to something strong)
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password by 'Testpassword@123';
+
+6. Create a new database user for wordpress (change the password to something strong)
+CREATE USER 'wp_user'@localhost IDENTIFIED BY 'Testpassword@123';
+
+7. Create a database for wordpress
+CREATE DATABASE wp;
+
+8. Grant all privilges on the database 'wp' to the newly created user
+GRANT ALL PRIVILEGES ON wp.* TO 'wp_user'@localhost;
+
+9. Download wordpress
+cd /tmp
+wget https://wordpress.org/latest.tar.gz
+
+10. Unzip
+tar -xvf latest.tar.gz
+
+11. Move wordpress folder to apache document root
+sudo mv wordpress/ /var/www/html
+
+12. Command to restart/reload apache server
+sudo systemctl restart apache2
+OR
+sudo systemctl reload apache2
+
+change wp-config.php file 
+DB-NAME
+DB-USER
+DB-PASSWORD
+DB-HOST(Provide private ip of SQL server)
+
+In the same file find the section called Authentication Unique Keys and Salts. 
+ into your wp-config.php file as follows:
+
+
+define('AUTH_KEY',         'FT+{Q!)X e%+OutZ(|1nn>vK+rUzcdZYj*n#,IRe eJ>!4sYw!jIEnT}*wuRQ:)*');
+define('SECURE_AUTH_KEY',  'vyV6Jx$>*Y5,D5YQ+$<Z+/>=>),?4(!gRb2X~&[g$,:C)|blmZG*/Gr|?V:yP,~.');
+define('LOGGED_IN_KEY',    '.Z|,XkEw{j$N7mD+g7)MbtrS=1Y1?]jQ^?B-C/Ow.(,p70}Zs|Z];,G!yv^MRKrS');
+define('NONCE_KEY',        'nd0hFA3x0u^VY@_S+u mLY(;F=OVyi1Y8O@-X%TXS 17{q`6;U|Ai!VDI?cwCd/O');
+define('AUTH_SALT',        ']&<[ 9<:@fDE7xY]lG}`nEJ.N|+INL+<{7if+/ew gpXY+$;r~~5L6|5%wye%_aD');
+define('SECURE_AUTH_SALT', 'T:}A7-erO`%,(lHfNYIW2OY(07n,5Dbc~m6wp!i]bbUK|%916tE%+JBu y-m`)}w');
+define('LOGGED_IN_SALT',   ' W*Y4/o?ri!_E@)mX/H ]-84{1ssFsP::a96-0ch_:=}S9HU|;/.5+N#k}#(bUz.');
+define('NONCE_SALT',       '1hd|8tcu[#C4xt||Z*KF|w|- u058d):7(-P0FN]8aIqQ33aSdz.<N-c,mh16![-');
+18.119.255.241:80
+18.119.255.241/wordpress
+
+
+
